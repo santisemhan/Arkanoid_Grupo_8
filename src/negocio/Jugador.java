@@ -11,17 +11,8 @@ public class Jugador {
 		this.puntajeFinal = puntajeFinal;
 	}
 
-    /*
-	public void setNombreJugador() {
-        return ;
-    }
-
-    public String getNombreJugador() {
-        return "";
-    }
-	*/
-    
     public int getPuntaje() {
     	return puntajeFinal;
     }
+    
 }

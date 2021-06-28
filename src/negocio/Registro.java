@@ -9,22 +9,29 @@ public class Registro {
 		this.jugadores = new ArrayList<Jugador>();
 	}
 
+    /**Recibe un nuevo nombre y puntaje para agregar al registro. 
+     * Si el registro esta lleno se elimina al jugador de la ultima posicion*/
 	public void agregarJugador(String nombreJugador, int puntaje) {
 		if(getCantidad()==20)
 			this.deleteJugador();
 		Jugador nuevoJ = new Jugador(nombreJugador,puntaje);
 		jugadores.add(nuevoJ);
-		//Collections.sort(jugadores.get);
-    }
+		jugadores.sort(new SortByScore());
+	}
 
+	/**se ordena el arrayList de manera decreciente*/
+    class SortByScore implements Comparator<Jugador> {
+    	public int compare(Jugador a, Jugador b){
+    		return b.getPuntaje() - a.getPuntaje();
+    	}
+    }
+    
+    /**Se elimina el ultimo jugador de jugadores*/
     private void deleteJugador() {
         jugadores.remove(19);
     }
 
-    public List<Jugador> getRegistro() {
-        return jugadores;
-    }
-
+    /**Comprueba si el puntaje de la partida pasada como parametro es mayor que el ultimo jugador del arraylist*/
     public boolean comprobarPuntaje(Partida partida) {
         if (getCantidad()==20) {
         	if(partida.getPuntaje() > jugadores.get(19).getPuntaje()) {
