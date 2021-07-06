@@ -1,12 +1,11 @@
 package test;
 
-import gui.Principal;
+import gui.IniciarJuego;
 
 public class TestPrueba {
 
 	public static void main(String[] args) {
-		new Principal();
-
+		new IniciarJuego();
 	}
 
 }

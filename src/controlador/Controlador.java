@@ -5,6 +5,7 @@ import negocio.Partida;
 import negocio.Registro;
 import views.BarraView;
 import views.BolaView;
+import views.JugadorView;
 import views.LadrilloView;
 import views.PartidaView;
 
@@ -48,36 +49,31 @@ public class Controlador {
 	}
 	
 	/**
-	 * Le pide a la partida que vuelva a colocar a la barra y a la bola en su posición de origen.
-	 * Devuelve un "int" para controlar cada caso de reseteo de la bola y la barra. Si devuelve 0 
-	 * es porque la bola llego al fondo. Si devuelve 1 es porque se destruyeron todos los ladrillos.
-	 * Si devuelve 2 es porque no ocurrio ninguna de las dos.*/
-	public int resetearBolaBarra() {
-		return partida.resetear();
+	 * Le pide a la partida que maneje el paso de nivel*/
+	public boolean resetearPasoNivel() {
+		return partida.resetearPasoNivel();
 	}
 	
 	/**
-	 * Le pide a la partida que resetee a todos los ladrillos.*/
-	public void resetearLadrillos() {
-		partida.resetearLadrillos();
+	 * Le pide a la partida que maneje la perdida de una vida*/
+	public boolean resetearPerdidaVida() {
+		return partida.resetearPerdidaVida();
 	}
 	
 	/**
-	 * Le pide a la partida que sume vidas. La partida hace las comprobaciones correspondientes.*/
+	 * Le pide a la partida que sume vidas*/
 	public void sumarVidas() {
 		partida.subirVida();
 	}
 	
 	/**
-	 * Le pide a la partida que realice un impacto entre la barra y la bola. 
-	 * La bola hace las comprobaciones correspondientes.*/
+	 * Le pide a la partida que realice un impacto entre la barra y la bola.*/
 	public void impacto() {
 		partida.impacto();
 	}
 	
 	/**
-	 * Le pide a la partida que realice un impacto entre la bola y los ladrillos. 
-	 * La bola hace las comprobaciones correspondientes.*/
+	 * Le pide a la partida que realice un impacto entre la bola y los ladrillos.*/
 	public void golpeLadrillo() {
 		partida.golpeLadrillo();
 	}
@@ -86,13 +82,6 @@ public class Controlador {
 	 * Le pide a la partida que cambie el estado de ejecucion. Es decir: le pide que haga "Pausa" o "Reanude" el juego*/
     public void cambiarEstadoEjecucion() {
         partida.cambiarEstadoEjecucion();
-    }
-
-    /**
-     * Crea una nueva entrada en el registro. Este metodo recibe como parametro el nombre ingresado por el jugador. 
-     * Este método debe ser llamado si el metodo "Comprobar puntaje" devuelve "true"*/
-    public void agregarARegistro(String nombre) {
-    	registro.agregarJugador(nombre, partida.getPuntaje());
     }
     
     /**
@@ -103,12 +92,23 @@ public class Controlador {
     }
 
     /**
-     * Le pregunta a la partida si la misma finalizo. La partida hace las verificaciones correspondientes*/
+     * Crea una nueva entrada en el registro. Este metodo recibe como parametro el nombre ingresado por el jugador. 
+     * Este método debe ser llamado si el metodo "Comprobar puntaje" devuelve "true"*/
+    public void agregarARegistro(String nombre) {
+    	registro.agregarJugador(nombre, partida);
+    }
+    
+    /**
+     * Le pregunta a la partida si la misma finalizo*/
     public boolean comprobarFinPartida() {
         return partida.finalizoPartida();
     }
     
     //Llamada a metodos "View"
+    public List<JugadorView> getJugadores(){
+    	return registro.obtenerJugadores();
+    }
+    
     public BarraView getBarra() {
     	return partida.getBarra();
     }

@@ -2,23 +2,13 @@ package views;
 
 public class BolaView {
 
-	private float velocidad;
 	private float x, y;
 
 	public BolaView() {}
 
-	public BolaView(float x, float y,float velocidad) {
+	public BolaView(float x, float y) {
 		this.x = x;
 		this.y = y;
-		this.velocidad = velocidad;
-	}
-
-	public float getVelocidad() {
-		return velocidad;
-	}
-
-	public void setVelocidad(float velocidad) {
-		this.velocidad = velocidad;
 	}
 
 	public float getX() {

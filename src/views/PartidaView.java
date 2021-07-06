@@ -14,7 +14,6 @@ public class PartidaView {
 		this.puntaje = puntaje;
 		this.ejecucion = ejecucion;
 	}
-	
 
 	public boolean isEjecucion() {
 		return ejecucion;
@@ -46,6 +45,10 @@ public class PartidaView {
 
 	public void setPuntaje(int puntaje) {
 		this.puntaje = puntaje;
+	}
+	
+	public String toString() {
+		return "Su puntaje es: "+puntaje+" puntos";
 	}
 	
 }

@@ -9,14 +9,16 @@ public class Ladrillo {
     private int columna;
     private int fila;
     private int ancho,alto;
+    private Partida partida;
 
-    public Ladrillo(int fila,int columna) {
+    public Ladrillo(int fila,int columna,Partida partida) {
 		this.valor = fila*10;
 		this.destruido = false;
 		this.columna = columna;
 		this.fila = fila;
-		this.ancho = 47;
-		this.alto = 10;
+		this.ancho = 97;
+		this.alto = 20;
+		this.partida = partida;
 	}
 //    Disposicion de los ladrillos de acuerdo a sus filas, columnas y valor
 //          5 4 3 2 1
@@ -26,9 +28,10 @@ public class Ladrillo {
 //    2        20
 //    1        10
 
-    /**cambia a "true" el atributo "destruido"*/
+    /**cambia a "true" el atributo "destruido" y le indica a la partida que debe sumar su valor al puntaje global*/
 	public void destruir() {
         destruido = true;
+        partida.subirPuntaje(valor);
     }
 	
 	public boolean getDestruido() {
@@ -43,17 +46,13 @@ public class Ladrillo {
     public int getColumna() {
         return columna;
     }
-    
-    public int getValor() {
-    	return valor;
-    }
 
     public int getFila() {
         return fila;
     }
     
     public LadrilloView toView() {
-    	return new LadrilloView(ancho, alto,destruido,valor);
+    	return new LadrilloView(ancho, alto,destruido);
     }
 
 }

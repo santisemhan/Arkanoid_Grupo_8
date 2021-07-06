@@ -1,25 +1,16 @@
 package views;
 
 public class LadrilloView {
-	 private int ancho,alto,valor;
+	 private int ancho,alto;
 	 private boolean destruido;
  
 	public LadrilloView() {
 	}
 
-	public LadrilloView(int ancho, int alto,boolean destruido,int valor) {
+	public LadrilloView(int ancho, int alto,boolean destruido) {
 		this.ancho = ancho;
 		this.alto = alto;
 		this.destruido = destruido;
-		this.valor = valor;
-	}
-
-	public int getValor() {
-		return valor;
-	}
-
-	public void setValor(int valor) {
-		this.valor = valor;
 	}
 
 	public boolean isDestruido() {

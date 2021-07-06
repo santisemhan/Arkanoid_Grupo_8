@@ -4,15 +4,13 @@ import views.BarraView;
 
 public class Barra {
 
-    private int largo, ancho ,ejeY,ejeX;
+    private int ejeY,ejeX;
     private boolean ejecucion;
  
     public Barra() {
-		this.ancho = 70;
-		this.ejeY = 250;
-		this.ejeX = 80;
-		this.ejecucion = true;
-	
+		this.ejeY = 500;
+		this.ejeX = 160;
+		this.ejecucion = true;	
 	}
     
     /**
@@ -22,24 +20,24 @@ public class Barra {
      * */
 	public void desplazarse (int direccion) {
 		if(ejecucion) {
-	        if (direccion == 37 && ejeX >= -8)//Se mueve a la izquierda
+	        if (direccion == 37 && ejeX >= -16)//Se mueve a la izquierda
 	        		ejeX-=3;
-	        if(direccion == 39 && ejeX <= 172)//Se mueve a la derecha
+	        if(direccion == 39 && ejeX <= 360)//Se mueve a la derecha
 	        		ejeX+=3;
         }
     }
 
-    public int getejeX() {
+    public int getEjeX() {
         return ejeX;
     }
     
-    public int getejeY() {
+    public int getEjeY() {
         return ejeY;
     }
     
     /**Coloca a la barra en la posicion de inicio*/
     public void resetearEjeX() {
-		this.ejeX = 80;
+		this.ejeX = 160;
 		this.ejecucion = true;
     }
 
@@ -48,6 +46,6 @@ public class Barra {
     }
     
     public BarraView toView() {
-    	return new BarraView(largo, ancho, ejeX, ejeY);
+    	return new BarraView(ejeX, ejeY);
     }
 }

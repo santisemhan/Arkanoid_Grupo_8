@@ -1,13 +1,11 @@
 package views;
 
 public class BarraView {
-	private int largo, ancho ,ejeX,ejeY;
+	private int ejeX,ejeY;
 
 	public BarraView() {}
 
-	public BarraView(int largo, int ancho, int ejeX,int ejeY) {
-		this.largo = largo;
-		this.ancho = ancho;
+	public BarraView(int ejeX,int ejeY) {
 		this.ejeX = ejeX;
 		this.ejeY = ejeY;
 	}
@@ -18,22 +16,6 @@ public class BarraView {
 
 	public void setejeY(int ejeY) {
 		this.ejeY = ejeY;
-	}
-
-	public int getLargo() {
-		return largo;
-	}
-
-	public void setLargo(int largo) {
-		this.largo = largo;
-	}
-
-	public int getAncho() {
-		return ancho;
-	}
-
-	public void setAncho(int ancho) {
-		this.ancho = ancho;
 	}
 
 	public int getejeX() {

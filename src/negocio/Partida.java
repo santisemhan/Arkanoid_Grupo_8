@@ -28,7 +28,7 @@ public class Partida {
 		
 		for(int i = 5;i>=1;i--) {//Generacion de ladrillos "i" es la fila. "j" es la columna
 			for(int j = 5; j >=1; j--) {
-				ladrillos.add(new Ladrillo(i,j));
+				ladrillos.add(new Ladrillo(i,j,this));
 			}
 		}	
 		this.bola = new Bola(ladrillos, barra);
@@ -39,11 +39,11 @@ public class Partida {
         return (vidas <=0);
     }
 
-	/**cambia su estado de ejecucion y el de la bola y la barra*/
+	/**cambia su estado de ejecucion y le pide a la bola y la barra que hagan lo mismo*/
     public void cambiarEstadoEjecucion() {
     	this.ejecucion = !ejecucion;
-    	barra.cambiarEstadoEjecucion();
     	bola.cambiarEstadoEjecucion();
+    	barra.cambiarEstadoEjecucion();    	
     }
 
     private void restarVida() {
@@ -51,7 +51,7 @@ public class Partida {
     }
     
     /**controla sus ladrillos preguntando si todavía hay alguno que no fue destruido*/
-    public boolean tengoLadrillosSanos() {
+    private boolean tengoLadrillosSanos() {
     	for(Ladrillo l:ladrillos) {
     		if(!l.getDestruido()) {
     			return true;
@@ -61,7 +61,7 @@ public class Partida {
     }
     
     /**le pide a todos sus ladrillos que ejecuten el metodo resetear*/
-    public void resetearLadrillos() {
+    private void resetearLadrillos() {
     	for(Ladrillo l:ladrillos) {
     		l.resetear();
     	}
@@ -71,7 +71,7 @@ public class Partida {
      * @param puntaje: representa al puntaje del ladrillo destruido
      * Se suma dicho puntaje al puntaje total del jugador
      */    
-    private void subirPuntaje(int puntaje) {
+    public void subirPuntaje(int puntaje) {
         this.puntaje += puntaje;
     }
     
@@ -89,8 +89,7 @@ public class Partida {
 
     /**le pide a la bola que gestione el choque con ladrillos*/
     public void golpeLadrillo() {
-    	int valor = bola.golpeLadrillo();
-    	subirPuntaje(valor);
+    	bola.golpeLadrillo();
     }
     
     /**le pide a la bola que gestione el choque con la barra*/
@@ -102,7 +101,7 @@ public class Partida {
     	return puntaje;
     }
     
-    /**le pide a la bola que ejecute su metodo mover*/
+    /**le pide a la barra que ejecute su metodo desplazarse*/
     public void moverBarra(int direccion) {
         barra.desplazarse(direccion);
     }
@@ -111,26 +110,36 @@ public class Partida {
     public void moverBola() {
     	bola.mover();
     }
-    
-    /**resetea las posiciones de la bola y la barra de acuerdo al evento. Si la bola toca el fondo 
-     * del tablero se debe restar una vida y devuelve un int "0" como control. Si todos los ladrillos 
-     * estan destruidos se resetea las posiciones de la bola y barra, se aumenta la velocidad de la 
-     * bola, se sube el nivel y devuelve un int "1" como control*/
-    public int resetear() {
-    	if(bola.toqueFondo()) {
-    		restarVida();
-    		bola.resetearPos();
-    		barra.resetearEjeX();
-    		return 0;
-    	}else if(!tengoLadrillosSanos()) {
+        
+    /**Manejo de la acción Pasar de nivel. La partida llama al método tengoLadrillosSanos que notifica si hay ladrillos no destruidos.
+     * Si todos los ladrillos están destruidos, la partida llama a los metedos subirNivel y resetearLadrillos. La partida llama a los
+     *  metedos de la bola que resetean su posición y aumentan su velocidad. La partida llama al metedo de la barra que resetea su posición.*/
+    public boolean resetearPasoNivel() {
+    	if(!tengoLadrillosSanos()) {
     		subirNivel();
+    		resetearLadrillos();
     		bola.aumentarVelocidad();
     		bola.resetearPos();
     		barra.resetearEjeX();
-    		return 1;
+    		return true;
     	}
     	else {
-    		return 2;
+    		return false;
+    	}
+    }
+    
+    /**Manejo de la acción Perder una vida. La partida le pregunta a la bola si llegó al fondo del tablero.
+     * Si llegó, la partida llama a los metedos de la bola y la barra que resetean las respectivas posiciones.
+     * Además, la partida llama al método restarVida*/
+    public boolean resetearPerdidaVida() {
+    	if(bola.toqueFondo()) {   		
+    		bola.resetearPos();
+    		barra.resetearEjeX();
+    		restarVida();
+    		return true;
+    	}
+    	else {
+    		return false;
     	}
     }
     

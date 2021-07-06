@@ -1,5 +1,6 @@
 package negocio;
-import java.util.*;
+
+import views.JugadorView;
 
 public class Jugador {
 
@@ -13,6 +14,10 @@ public class Jugador {
 
     public int getPuntaje() {
     	return puntajeFinal;
+    }
+    
+    public JugadorView toView() {
+    	return new JugadorView(nombreJugador, puntajeFinal);
     }
     
 }
